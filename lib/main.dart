@@ -1,10 +1,26 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/responsive/mobile_screen_layout.dart';
 import 'package:flutter_instagram_clone/responsive/responsive_layout_screen.dart';
 import 'package:flutter_instagram_clone/responsive/web_screen_layout.dart';
 import 'package:flutter_instagram_clone/utils/colors.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyBxv-Nwmmzdf2OaSc4I3MUjYCrW4WpMumA",
+        appId: "1:320420702079:web:f8536e0850d09737f89c4a",
+        messagingSenderId: "320420702079",
+        projectId: "flutter-instagram-clone-5a186",
+        storageBucket: "flutter-instagram-clone-5a186.appspot.com",
+      ),
+    );
+  } else {
+    await Firebase.initializeApp();
+  }
   runApp(const MyApp());
 }
 
