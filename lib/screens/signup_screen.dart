@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_instagram_clone/resources/auth_methods.dart';
 import 'package:flutter_instagram_clone/utils/colors.dart';
 import 'package:flutter_instagram_clone/widgets/test_field_input.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,6 +29,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -83,16 +85,27 @@ class _SignupScreenState extends State<SignupScreen> {
             textInputType: TextInputType.text,
           ),
           const SizedBox(height: 24),
-          Container(
-            alignment: Alignment.center,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            decoration: const ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(4))),
-              color: blueColor,
+          InkWell(
+            onTap: () async {
+              String res = await AuthMethods().signUpUser(
+                email: _emailController.text,
+                password: _passwordController.text,
+                username: _usernameController.text,
+                bio: _bioController.text,
+              );
+              print(res);
+            },
+            child: Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              decoration: const ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4))),
+                color: blueColor,
+              ),
+              child: const Text('Entrar'),
             ),
-            child: const Text('Entrar'),
           ),
           const SizedBox(
             height: 12,
