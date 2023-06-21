@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
     String res = await AuthMethods().loginUser(
         email: _emailController.text, password: _passwordController.text);
 
-    if (res == 'sucess') {
+    if (res == 'Login bem sucedido') {
     } else {
       showSnackBar('res', context);
     }
