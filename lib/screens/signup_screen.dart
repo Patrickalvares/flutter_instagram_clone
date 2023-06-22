@@ -1,6 +1,10 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/resources/auth_methods.dart';
+import 'package:flutter_instagram_clone/responsive/mobile_screen_layout.dart';
+import 'package:flutter_instagram_clone/responsive/responsive_layout_screen.dart';
+import 'package:flutter_instagram_clone/responsive/web_screen_layout.dart';
+import 'package:flutter_instagram_clone/screens/login_screen.dart';
 import 'package:flutter_instagram_clone/utils/colors.dart';
 import 'package:flutter_instagram_clone/utils/utils.dart';
 import 'package:flutter_instagram_clone/widgets/test_field_input.dart';
@@ -69,7 +73,15 @@ class _SignupScreenState extends State<SignupScreen> {
         res,
         context,
       );
-    } else {}
+    } else {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) {
+          return const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout());
+        },
+      ));
+    }
   }
 
   @override
@@ -169,14 +181,20 @@ class _SignupScreenState extends State<SignupScreen> {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: const Text('Ainda não possui conta? '),
+                child: const Text('Já possuí conta? '),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) {
+                      return const LoginScreen();
+                    },
+                  ));
+                },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: const Text(
-                    'Cadastre-se',
+                    'Entre Aqui',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
