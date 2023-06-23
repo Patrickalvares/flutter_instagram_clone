@@ -30,6 +30,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
 
   void navigationTapped(int page) {
     pageController.jumpToPage(page);
+    setState(() {
+      _page = page;
+    });
   }
 
   void onPageChanged(int page) {
