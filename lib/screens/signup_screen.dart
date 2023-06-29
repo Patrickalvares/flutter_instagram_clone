@@ -68,7 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
       _isLoading = false;
     });
 
-    if (res != 'sucess') {
+    if (res != 'sucesso') {
       showSnackBar(
         res,
         context,
