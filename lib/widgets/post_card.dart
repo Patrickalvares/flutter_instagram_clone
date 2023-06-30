@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/utils/colors.dart';
+import 'package:intl/intl.dart';
 
 class PostCard extends StatelessWidget {
-  const PostCard({super.key});
+  final snap;
+  const PostCard({super.key, required this.snap});
 
   @override
   Widget build(BuildContext context) {
@@ -17,21 +19,20 @@ class PostCard extends StatelessWidget {
           ).copyWith(right: 0),
           child: Row(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 16,
-                backgroundImage: NetworkImage(
-                    'https://engineering.unl.edu/images/staff/Kayla-Person.jpg'),
+                backgroundImage: NetworkImage(snap['profileImage']),
               ),
-              const Expanded(
+              Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 8),
+                  padding: const EdgeInsets.only(left: 8),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'username',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        snap['username'],
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -68,7 +69,7 @@ class PostCard extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.35,
           width: double.infinity,
           child: Image.network(
-            'https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2022/06/shutterstock_736022743.jpg',
+            snap['PostUrl'],
             fit: BoxFit.cover,
           ),
         ),
@@ -112,7 +113,7 @@ class PostCard extends StatelessWidget {
                     .subtitle2!
                     .copyWith(fontWeight: FontWeight.w800),
                 child: Text(
-                  '1.231 Curtidas',
+                  '${snap['likes'].length} curtidas',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
@@ -120,19 +121,19 @@ class PostCard extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.only(top: 8),
                 child: RichText(
-                  text: const TextSpan(
-                      style: TextStyle(color: Colors.white),
+                  text: TextSpan(
+                      style: const TextStyle(color: Colors.white),
                       children: [
                         TextSpan(
-                          text: 'username',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          text: snap['username'],
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        TextSpan(
+                        const TextSpan(
                           text: ' ',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
-                          text: 'Hey this is some description to be replaced',
+                          text: snap['description'],
                         ),
                       ]),
                 ),
@@ -140,7 +141,7 @@ class PostCard extends StatelessWidget {
               InkWell(
                 onTap: () {},
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 4),
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                   child: const Text(
                     'Ver todos os comentarios',
                     style: TextStyle(fontSize: 16, color: secondaryColor),
@@ -150,9 +151,11 @@ class PostCard extends StatelessWidget {
               InkWell(
                 onTap: () {},
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 4),
-                  child: const Text(
-                    '22/12/2021',
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(
+                    DateFormat.yMMMd().format(
+                      snap['datePublished'].toDate(),
+                    ),
                     style: TextStyle(fontSize: 16, color: secondaryColor),
                   ),
                 ),
