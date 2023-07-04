@@ -124,14 +124,14 @@ class _PostCardState extends State<PostCard> {
         Row(
           children: [
             LikeAnimation(
-              isAnimating: widget.snap['likes'].constains(user.uid),
+              isAnimating: widget.snap['likes'].contains(user.uid),
               smallLike: true,
               child: IconButton(
                   onPressed: () async {
                     await FirestoreMethods().likePost(
                         widget.snap['postId'], user.uid, widget.snap['likes']);
                   },
-                  icon: widget.snap['likes'].constains(user.uid)
+                  icon: widget.snap['likes'].contains(user.uid)
                       ? const Icon(
                           Icons.favorite,
                           color: Colors.red,
@@ -143,7 +143,7 @@ class _PostCardState extends State<PostCard> {
             ),
             IconButton(
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CommentsScreen(),
+                      builder: (context) => CommentsScreen(snap: widget.snap),
                     )),
                 icon: const Icon(
                   Icons.comment_outlined,
