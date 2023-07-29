@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_instagram_clone/resources/auth_methods.dart';
 import 'package:flutter_instagram_clone/resources/firestore_methods.dart';
+import 'package:flutter_instagram_clone/screens/login_screen.dart';
 import 'package:flutter_instagram_clone/utils/colors.dart';
 import 'package:flutter_instagram_clone/utils/utils.dart';
 import 'package:flutter_instagram_clone/widgets/follow_button.dart';
@@ -102,11 +104,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   FirebaseAuth.instance.currentUser!.uid ==
                                           widget.uid
                                       ? FollowButton(
-                                          function: () {},
+                                          function: () async {
+                                            await AuthMethods().signOut();
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                                    MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const LoginScreen(),
+                                            ));
+                                          },
                                           backgroundColor:
                                               mobileBackgroundColor,
                                           borderColor: Colors.grey,
-                                          text: 'Edit Profile',
+                                          text: 'sair',
                                           textColor: primaryColor)
                                       : isFollowing
                                           ? FollowButton(
@@ -153,15 +163,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Container(
                       alignment: Alignment.bottomLeft,
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: Text(
                         userData['username'].toString(),
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                     Container(
                       alignment: Alignment.bottomLeft,
-                      padding: EdgeInsets.only(top: 1),
+                      padding: const EdgeInsets.only(top: 1),
                       child: Text(
                         userData['bio'].toString(),
                       ),
