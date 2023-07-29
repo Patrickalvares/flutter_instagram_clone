@@ -49,6 +49,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         children: homeScreenItems,
       ),
       bottomNavigationBar: CupertinoTabBar(
+        height: 70,
         backgroundColor: mobileBackgroundColor,
         items: [
           BottomNavigationBarItem(
